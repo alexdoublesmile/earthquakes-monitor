@@ -2,7 +2,7 @@ package com.joyful.earthquakes.service;
 
 import com.joyful.earthquakes.mapper.USGSEventMapper;
 import com.joyful.earthquakes.model.USGSEvent;
-import com.joyful.earthquakes.repository.USGSEventRepository;
+import com.joyful.earthquakes.repository.EarthEventRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.jsoup.Jsoup;
@@ -22,10 +22,10 @@ import static com.joyful.earthquakes.util.ParserConstants.FEED_TAG;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class USGSEventService {
+public class EarthEventService {
 
     private final USGSEventMapper usgsEventMapper;
-    private final USGSEventRepository usgsEventRepository;
+    private final EarthEventRepository earthEventRepository;
 
     @Transactional
     public void parseUSGS() {
@@ -44,27 +44,11 @@ public class USGSEventService {
         final Element feed = doc.selectFirst(FEED_TAG);
         final Elements entries = feed.select(ENTRY_TAG);
 
-
-//        List<USGSEvent> earthEventList = new ArrayList<>();
         for (Element entry : entries) {
             final USGSEvent event = usgsEventMapper.mapToEarthEvent(entry);
-            if (usgsEventRepository.notExists(event.getTime())) {
-                usgsEventRepository.save(event);
+            if (earthEventRepository.notExists(event.getTime())) {
+                earthEventRepository.save(event);
             }
-
-//            entry.getAllElements().forEach(e -> {
-//                if (e.selectFirst(TITLE_TAG) != null
-//                        && e.selectFirst(TIME_TAG) != null) {
-//                    earthEventList.add(earthEventMapper.mapToEarthEvent(entry));
-//                }
-//            });
         }
-
-
-//        final List<USGSEvent> sortedEvents = earthEventList.stream()
-//                .sorted(comparing(USGSEvent::getTime))
-//                .collect(toList());
-//
-//        sortedEvents.forEach(System.out::println);
     }
 }

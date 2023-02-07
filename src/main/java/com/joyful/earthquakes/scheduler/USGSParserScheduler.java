@@ -1,6 +1,6 @@
 package com.joyful.earthquakes.scheduler;
 
-import com.joyful.earthquakes.service.USGSEventService;
+import com.joyful.earthquakes.service.EarthEventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class USGSParserScheduler {
 
-    private final USGSEventService earthQuakesService;
+    private final EarthEventService earthQuakesService;
 
     @Scheduled(cron = " */60 * * * * *")
     public void parseUSGS() {

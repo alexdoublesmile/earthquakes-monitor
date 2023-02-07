@@ -1,6 +1,7 @@
 package com.joyful.earthquakes.util;
 
 import com.joyful.earthquakes.model.LocationType;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +14,7 @@ import static java.lang.Character.isLetter;
 import static java.lang.Character.isLowerCase;
 import static java.util.Arrays.stream;
 
+@Log4j2
 public final class ParserHelper {
 
     public static Map<LocationType, String> parseLocation(String fullLocation) {
@@ -26,8 +28,11 @@ public final class ParserHelper {
                 : fullLocation.substring(0, separatorNum);
 
         String locationSeparator = separatorNum == -1 ? SPACE : COMMA + SPACE;
+        String location = "";
 
-        String location = fullLocation.substring(region.length() + locationSeparator.length());
+        location = location.length() == fullLocation.length()
+                ? region
+                : fullLocation.substring(region.length() + locationSeparator.length());
 
         if (hasNotCapitalizedChar(location)) {
             region = region + SPACE + location;
