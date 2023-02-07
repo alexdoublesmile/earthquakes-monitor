@@ -4,6 +4,7 @@ import com.joyful.earthquakes.model.EarthEvent;
 import com.joyful.earthquakes.model.LocationType;
 import com.joyful.earthquakes.util.ParserHelper;
 import org.jsoup.nodes.Element;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import static java.time.ZonedDateTime.parse;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.joining;
 
+@Component
 public class EarthEventMapper {
     public EarthEvent mapToEarthEvent(Element htmlInfo) {
 
