@@ -13,16 +13,15 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.joyful.earthquakes.util.ConnectionConstants.*;
 import static com.joyful.earthquakes.util.ParserConstants.*;
 
 public class Launcher {
     public static void main(String[] args) throws IOException {
-        String noscriptUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.atom";
-
-        final Document doc = Jsoup.connect(noscriptUrl)
-                .userAgent("Mozilla")
-                .timeout(5000)
-                .referrer("https://google.com")
+        final Document doc = Jsoup.connect(NO_SCRIPT_URL)
+                .userAgent(BROWSER)
+                .timeout(TIMEOUT)
+                .referrer(REQUESTER)
                 .get();
 
         final Element feed = doc.selectFirst(FEED_TAG);
