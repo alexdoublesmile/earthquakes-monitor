@@ -1,15 +1,16 @@
 package com.joyful.earthquakes.model;
 
 import lombok.Builder;
+import lombok.Data;
 import lombok.Value;
 
 import java.time.ZonedDateTime;
 
-@Value
+@Data
 @Builder
 public class EarthEvent {
-    Float magnitude;
-    String region;
-    String location;
-    ZonedDateTime time;
+    private Float magnitude;
+    private String region;
+    private String location;
+    private ZonedDateTime time;
 }
