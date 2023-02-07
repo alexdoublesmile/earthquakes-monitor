@@ -1,13 +1,19 @@
 package com.joyful.earthquakes;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.io.IOException;
 
 public class Launcher {
-    public static void main(String[] args) throws MalformedURLException {
-//        final URLConnection conn = new URL("https://earthquake.usgs.gov/earthquakes/map/?currentFeatureId=us6000jm5j&extent=6.05316,-16.43555&extent=64.39694,88.94531").openConnection();
+    public static void main(String[] args) throws IOException {
+        String noscriptUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.atom";
 
+        final Document doc = Jsoup.connect(noscriptUrl)
+                .userAgent("Mozilla")
+                .timeout(5000)
+                .referrer("https://google.com")
+                .get();
 
     }
 }
