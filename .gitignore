@@ -1,0 +1,11 @@
+# compiled files
+/out
+/target
+/build
+
+# IDEA files
+/.idea
+*.iml
+
+# archives
+*.tar   # Created by .ignore support plugin (hsz.mobi)# Created by .ignore support plugin (hsz.mobi)
