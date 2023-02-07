@@ -7,6 +7,7 @@ import org.jsoup.nodes.Element;
 
 import java.util.Map;
 
+import static com.joyful.earthquakes.util.ParserConstants.*;
 import static java.lang.Float.parseFloat;
 import static java.time.ZonedDateTime.parse;
 import static java.util.Arrays.stream;
@@ -15,13 +16,13 @@ import static java.util.stream.Collectors.joining;
 public class EarthEventMapper {
     public EarthEvent mapToEarthEvent(Element htmlInfo) {
 
-        final String title = htmlInfo.selectFirst("title").text();
-        final String updated = htmlInfo.selectFirst("updated").text();
+        final String title = htmlInfo.selectFirst(TITLE_TAG).text();
+        final String updated = htmlInfo.selectFirst(TIME_TAG).text();
 
-        final String[] splitTitle = title.split(" ");
+        final String[] splitTitle = title.split(SPACE);
 
         String magnitude = splitTitle[1];
-        String fullLocation = stream(splitTitle).skip(3).collect(joining(" "));
+        String fullLocation = stream(splitTitle).skip(3).collect(joining(SPACE));
 
         final Map<LocationType, String> locationMap = ParserHelper.parseLocation(fullLocation);
 
