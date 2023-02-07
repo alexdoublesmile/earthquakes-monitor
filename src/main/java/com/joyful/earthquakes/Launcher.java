@@ -9,7 +9,9 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Launcher {
     public static void main(String[] args) throws IOException {
@@ -34,5 +36,11 @@ public class Launcher {
                 }
             });
         }
+
+        final List<EarthEvent> sortedEvents = earthEventList.stream()
+                .sorted(Comparator.comparingDouble(EarthEvent::getMagnitude))
+                .collect(Collectors.toList());
+
+        sortedEvents.forEach(System.out::println);
     }
 }
