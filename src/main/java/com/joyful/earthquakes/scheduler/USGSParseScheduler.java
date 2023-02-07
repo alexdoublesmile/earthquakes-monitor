@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class USGSParserScheduler {
+public class USGSParseScheduler {
 
     private final EarthEventService earthQuakesService;
 

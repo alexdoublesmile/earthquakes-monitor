@@ -1,4 +1,4 @@
-package com.joyful.earthquakes.model;
+package com.joyful.earthquakes.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +16,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Table(name = "usgs_event")
 @NoArgsConstructor
 @AllArgsConstructor
-public class USGSEvent {
+public class EarthEvent {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)

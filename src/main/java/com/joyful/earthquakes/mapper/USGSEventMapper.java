@@ -1,7 +1,7 @@
 package com.joyful.earthquakes.mapper;
 
 import com.joyful.earthquakes.model.LocationType;
-import com.joyful.earthquakes.model.USGSEvent;
+import com.joyful.earthquakes.model.entity.EarthEvent;
 import com.joyful.earthquakes.util.ParserHelper;
 import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ import static java.util.stream.Collectors.joining;
 
 @Component
 public class USGSEventMapper {
-    public USGSEvent mapToEarthEvent(Element htmlInfo) {
+    public EarthEvent mapToEarthEvent(Element htmlInfo) {
 
         final String title = htmlInfo.selectFirst(TITLE_TAG).text();
         final String updated = htmlInfo.selectFirst(TIME_TAG).text();
@@ -28,7 +28,7 @@ public class USGSEventMapper {
 
         final Map<LocationType, String> locationMap = ParserHelper.parseLocation(fullLocation);
 
-        return USGSEvent.builder()
+        return EarthEvent.builder()
                 .magnitude(parseDouble(magnitude))
                 .region(locationMap.get(LocationType.REGION))
                 .location(locationMap.get(LocationType.LOCATION))
