@@ -2,7 +2,6 @@ package com.joyful.earthquakes.model;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.Value;
 
 import java.time.ZonedDateTime;
 

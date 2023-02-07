@@ -11,4 +11,4 @@ spring:
     password: ${DB_PASSWORD:pass}
     driver-class-name: org.postgresql.Driver
   liquibase:
-    enabled: truedb.changelog-master.yaml
+    enabled: true
