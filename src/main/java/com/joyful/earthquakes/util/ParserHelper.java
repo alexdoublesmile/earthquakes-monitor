@@ -30,7 +30,7 @@ public final class ParserHelper {
         String location = fullLocation.substring(region.length() + locationSeparator.length());
 
         if (hasNotCapitalizedChar(location)) {
-            region = region + " " + location;
+            region = region + SPACE + location;
             location = region.split(SPACE)[0];
         }
 

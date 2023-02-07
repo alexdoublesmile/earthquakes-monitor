@@ -13,6 +13,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.joyful.earthquakes.util.ParserConstants.*;
+
 public class Launcher {
     public static void main(String[] args) throws IOException {
         String noscriptUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.atom";
@@ -23,15 +25,16 @@ public class Launcher {
                 .referrer("https://google.com")
                 .get();
 
-        final Element feed = doc.selectFirst("feed");
-        final Elements entries = feed.select("entry");
+        final Element feed = doc.selectFirst(FEED_TAG);
+        final Elements entries = feed.select(ENTRY_TAG);
 
         final EarthEventMapper earthEventMapper = new EarthEventMapper();
 
         List<EarthEvent> earthEventList = new ArrayList<>();
         for (Element entry : entries) {
             entry.getAllElements().forEach(e -> {
-                if (e.selectFirst("title") != null && e.selectFirst("updated") != null) {
+                if (e.selectFirst(TITLE_TAG) != null
+                        && e.selectFirst(TIME_TAG) != null) {
                     earthEventList.add(earthEventMapper.mapToEarthEvent(entry));
                 }
             });
