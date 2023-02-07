@@ -30,7 +30,7 @@ public final class ParserHelper {
         String locationSeparator = separatorNum == -1 ? SPACE : COMMA + SPACE;
         String location = "";
 
-        location = location.length() == fullLocation.length()
+        location = region.length() == fullLocation.length()
                 ? region
                 : fullLocation.substring(region.length() + locationSeparator.length());
 
