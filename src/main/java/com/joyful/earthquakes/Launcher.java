@@ -2,6 +2,8 @@ package com.joyful.earthquakes;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
@@ -15,5 +17,19 @@ public class Launcher {
                 .referrer("https://google.com")
                 .get();
 
+        final Element feed = doc.selectFirst("feed");
+        final Elements entries = feed.select("entry");
+
+        for (Element entry : entries) {
+            entry.getAllElements().forEach(e -> {
+                if (e.selectFirst("title") != null && e.selectFirst("updated") != null) {
+
+                    System.out.println(e.selectFirst("title").text());
+                    System.out.println(e.selectFirst("updated").text());
+                    System.out.println(" --- ");
+                }
+
+            });
+        }
     }
 }
