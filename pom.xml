@@ -18,6 +18,14 @@
         <exec.mainClass>com.joyful.earthquakes.Launcher</exec.mainClass>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.13.1</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <resources>
             <resource>
