@@ -6,6 +6,7 @@ import com.joyful.earthquakes.model.entity.EarthEvent;
 import com.joyful.earthquakes.repository.EarthEventRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 import static java.lang.Integer.parseInt;
 import static java.time.temporal.ChronoUnit.DAYS;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 @Log4j2
 @Service
@@ -49,6 +51,9 @@ public class EarthEventService {
     }
 
     public List<String> findLocations(String daysNumber) {
+        if (isBlank(daysNumber)) {
+            daysNumber = "1";
+        }
         Timestamp time = Timestamp.valueOf(LocalDateTime.now().minus(parseInt(daysNumber), DAYS));
 
         return earthEventRepository.findLocationsByDaysNumber(time);

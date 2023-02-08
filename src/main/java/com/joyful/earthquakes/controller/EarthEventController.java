@@ -39,8 +39,7 @@ public class EarthEventController {
             @ApiResponse(responseCode = "404", description = "No events for this location"),
             @ApiResponse(responseCode = "500", description = "Server error")})
     @GetMapping("/locations")
-    public List<String> findLocations(@RequestParam(
-            name = "days ago", required = false, defaultValue = "0") String daysNumber) {
+    public List<String> findLocations(@RequestParam(name = "days ago", required = false) String daysNumber) {
         return earthEventService.findLocations(daysNumber);
     }
 }
