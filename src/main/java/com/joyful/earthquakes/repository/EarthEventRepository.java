@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface EarthEventRepository extends JpaRepository<EarthEvent, Long> {
 
+    EarthEvent save(EarthEvent event);
+
     @Query("SELECT CASE WHEN COUNT(u) > 0 THEN 'false' ELSE 'true' END FROM EarthEvent u WHERE u.time = ?1")
     Boolean notExists(ZonedDateTime time);
 
