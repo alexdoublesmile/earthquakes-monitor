@@ -9,11 +9,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SwaggerConfig {
 
-    @Value("${version.number}")
+    @Value("${version.number:2.17.5}")
     private String version;
 
     @Bean
     public OpenAPI customOpenAPI() {
-        return new OpenAPI().info(new Info().title(String.format("Earthquakes Rest-API сервис (v.%s)", version)));
+        return new OpenAPI().info(new Info().title(String.format("Earthquakes Rest-API service (v.%s)", version)));
     }
 }

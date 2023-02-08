@@ -16,7 +16,7 @@ import java.util.List;
 
 @Log4j2
 @RestController
-@RequestMapping("/api/v1/earth-events")
+@RequestMapping("/api/v1/events")
 @RequiredArgsConstructor
 public class EarthEventController {
     private EarthEventService earthEventService;
