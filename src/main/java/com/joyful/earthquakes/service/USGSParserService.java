@@ -76,7 +76,7 @@ public class USGSParserService {
 
             final EarthEvent firstEvent = events.get(0);
             earthEventService.findLastTimeByLocation(entry.getKey())
-                    .ifPresent(lastTime -> firstEvent.setEventTimeDiff(firstEvent.getTime().toEpochSecond()
+                    .ifPresent(lastTime -> firstEvent.setTimeDiffSec(firstEvent.getTime().toEpochSecond()
                             - lastTime.toLocalDateTime().atZone(ZoneId.systemDefault()).toEpochSecond()));
 
             for (int i = 1; i < events.size(); i++) {
@@ -84,7 +84,7 @@ public class USGSParserService {
                 final long currentEventTime = currentEvent.getTime().toEpochSecond();
                 final long previousEventTime = events.get(i - 1).getTime().toEpochSecond();
 
-                currentEvent.setEventTimeDiff(currentEventTime - previousEventTime);
+                currentEvent.setTimeDiffSec(currentEventTime - previousEventTime);
             }
         }
     }

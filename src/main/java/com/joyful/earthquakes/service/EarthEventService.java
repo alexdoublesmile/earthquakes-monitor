@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,22 +28,19 @@ public class EarthEventService {
 
     @Transactional
     public void saveAll(List<EarthEvent> events) {
-        final ZonedDateTime maxTime = earthEventRepository.findMaxTime()
-                .toLocalDateTime().atZone(ZoneId.systemDefault());
-        events.forEach(event -> {
-            if (maxTime.isBefore(event.getTime())) {
-                earthEventRepository.save(event);
-            }
-        });
+        final Timestamp timestamp = earthEventRepository.findMaxTime();
+        if (timestamp == null) {
+            earthEventRepository.saveAll(events);
+        } else {
+            events.forEach(event -> {
+                if (timestamp.toLocalDateTime().atZone(ZoneId.systemDefault()).isBefore(event.getTime())) {
+                    earthEventRepository.save(event);
+                }
+            });
+        }
     }
 
     public Optional<Timestamp> findLastTimeByLocation(String location) {
         return Optional.ofNullable(earthEventRepository.findMaxTimeByLocation(location));
-//        final List<EarthEvent> allByLocation = earthEventRepository.findAllByLocation(location);
-//
-//        return allByLocation.stream()
-//                .filter(event -> event.getTime().isBefore(time))
-//                .map(EarthEvent::getTime)
-//                .max(ZonedDateTime::compareTo);
     }
 }
