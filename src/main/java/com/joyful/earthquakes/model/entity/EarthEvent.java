@@ -29,4 +29,6 @@ public class EarthEvent {
 
     private String region;
     private String location;
+
+    private Long eventTimeDiff;
 }

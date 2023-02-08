@@ -2,6 +2,7 @@ package com.joyful.earthquakes.mapper;
 
 import com.joyful.earthquakes.model.dto.EarthEventReadDto;
 import com.joyful.earthquakes.model.entity.EarthEvent;
+import org.springframework.stereotype.Component;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
 
+@Component
 public class EarthEventMapper {
 
     public List<EarthEventReadDto> toDtoList(List<EarthEvent> eventList) {
