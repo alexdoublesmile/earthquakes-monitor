@@ -10,8 +10,8 @@ public class EarthEventReadDto {
     String fullLocation;
     String time;
     String timeDiff;
-    String hourFrequency;
-    String hourFactor;
-    String dayFrequency;
-    String dayFactor;
+//    String hourFrequency;
+//    String hourFactor;
+//    String dayFrequency;
+//    String dayFactor;
 }

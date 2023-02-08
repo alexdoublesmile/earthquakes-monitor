@@ -28,10 +28,10 @@ public class EarthEventMapper {
                         .fullLocation(earthEvent.getRegion() + COMMA + SPACE + earthEvent.getLocation())
                         .time(earthEvent.getTime().toString())
                         .timeDiff(getTieDiff(earthEvent.getTimeDiffSec()))
-                        .hourFrequency(getFrequency(earthEvent, sortedEvents, HOURS) + SPACE + "min.")
-                        .hourFactor(getFactor(earthEvent, sortedEvents, HOURS) + SPACE + "min. difference")
-                        .dayFrequency(getFrequency(earthEvent, sortedEvents, DAYS) + SPACE + "min.")
-                        .dayFactor(getFactor(earthEvent, sortedEvents, DAYS) + SPACE + "min. difference")
+//                        .hourFrequency(getFrequency(earthEvent, sortedEvents, HOURS) + SPACE + "min.")
+//                        .hourFactor(getFactor(earthEvent, sortedEvents, HOURS) + SPACE + "min. difference")
+//                        .dayFrequency(getFrequency(earthEvent, sortedEvents, DAYS) + SPACE + "min.")
+//                        .dayFactor(getFactor(earthEvent, sortedEvents, DAYS) + SPACE + "min. difference")
                         .build())
                 .collect(toList());
     }
