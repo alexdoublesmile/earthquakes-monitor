@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -74,9 +75,9 @@ public class USGSParserService {
             final List<EarthEvent> events = entry.getValue();
 
             final EarthEvent firstEvent = events.get(0);
-            final ZonedDateTime firstEventTime = firstEvent.getTime();
-            earthEventService.findLastTimeByLocation(entry.getKey(), firstEventTime)
-                    .ifPresent(lastTime -> firstEvent.setEventTimeDiff(firstEventTime.toEpochSecond() - lastTime.toEpochSecond()));
+            earthEventService.findLastTimeByLocation(entry.getKey())
+                    .ifPresent(lastTime -> firstEvent.setEventTimeDiff(firstEvent.getTime().toEpochSecond()
+                            - lastTime.toLocalDateTime().atZone(ZoneId.systemDefault()).toEpochSecond()));
 
             for (int i = 1; i < events.size(); i++) {
                 final EarthEvent currentEvent = events.get(i);
