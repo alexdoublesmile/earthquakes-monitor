@@ -10,9 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
+
+import static java.lang.Integer.parseInt;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Log4j2
 @Service
@@ -42,5 +46,11 @@ public class EarthEventService {
 
     public Optional<Timestamp> findLastTimeByLocation(String location) {
         return Optional.ofNullable(earthEventRepository.findMaxTimeByLocation(location));
+    }
+
+    public List<String> findLocations(String daysNumber) {
+        Timestamp time = Timestamp.valueOf(LocalDateTime.now().minus(parseInt(daysNumber), DAYS));
+
+        return earthEventRepository.findLocationsByDaysNumber(time);
     }
 }

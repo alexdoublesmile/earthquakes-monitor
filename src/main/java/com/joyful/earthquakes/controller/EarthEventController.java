@@ -21,7 +21,7 @@ import java.util.List;
 public class EarthEventController {
     private final EarthEventService earthEventService;
 
-    @Operation(summary = "Getting all events by location")
+    @Operation(summary = "Get all events by location")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
@@ -30,5 +30,17 @@ public class EarthEventController {
     @GetMapping
     public List<EarthEventReadDto> findByLocationName(@RequestParam String location) {
         return earthEventService.findByLocationName(location);
+    }
+
+    @Operation(summary = "Get all locations")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "No events for this location"),
+            @ApiResponse(responseCode = "500", description = "Server error")})
+    @GetMapping("/locations")
+    public List<String> findLocations(@RequestParam(
+            name = "days ago", required = false, defaultValue = "0") String daysNumber) {
+        return earthEventService.findLocations(daysNumber);
     }
 }

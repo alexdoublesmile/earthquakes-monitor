@@ -22,4 +22,8 @@ public interface EarthEventRepository extends JpaRepository<EarthEvent, Long> {
 
     @Query(nativeQuery = true, value = "SELECT max(event_time) FROM earth_event WHERE location = :location")
     Timestamp findMaxTimeByLocation(String location);
+
+    @Query(nativeQuery = true,
+            value = "SELECT DISTINCT location FROM earth_event WHERE event_time < :time")
+    List<String> findLocationsByDaysNumber(Timestamp time);
 }
