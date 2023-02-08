@@ -2,6 +2,9 @@ package com.joyful.earthquakes.controller;
 
 import com.joyful.earthquakes.model.dto.EarthEventReadDto;
 import com.joyful.earthquakes.service.EarthEventService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +21,12 @@ import java.util.List;
 public class EarthEventController {
     private EarthEventService earthEventService;
 
+    @Operation(summary = "Getting all events by location")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "No events for this location"),
+            @ApiResponse(responseCode = "500", description = "Server error")})
     @GetMapping
     public List<EarthEventReadDto> findByLocationName(@RequestParam String location) {
         return earthEventService.findByLocationName(location);
