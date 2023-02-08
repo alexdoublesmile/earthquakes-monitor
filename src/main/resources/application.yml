@@ -1,3 +1,4 @@
+version.number=@project.version@
 spring:
   main:
     banner-mode: off
