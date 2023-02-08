@@ -25,10 +25,10 @@ public class EarthEventMapper {
                         .magnitude(String.valueOf(earthEvent.getMagnitude()))
                         .fullLocation(earthEvent.getRegion() + earthEvent.getLocation())
                         .time(earthEvent.getTime().toString())
-                        .hourFrequency(String.valueOf(getFrequency(earthEvent, sortedEvents, HOURS)))
-                        .hourFactor(String.valueOf(getFactor(earthEvent, sortedEvents, HOURS)))
-                        .dayFrequency(String.valueOf(getFrequency(earthEvent, sortedEvents, DAYS)))
-                        .dayFactor(String.valueOf(getFactor(earthEvent, sortedEvents, DAYS)))
+                        .hourFrequency(getFrequency(earthEvent, sortedEvents, HOURS) + "min")
+                        .hourFactor(getFactor(earthEvent, sortedEvents, HOURS) + "min")
+                        .dayFrequency(getFrequency(earthEvent, sortedEvents, DAYS) + "min")
+                        .dayFactor(getFactor(earthEvent, sortedEvents, DAYS) + "min")
                         .build())
                 .collect(toList());
     }
@@ -45,11 +45,11 @@ public class EarthEventMapper {
                 .filter(event -> event.getTimeDiffSec() != null)
                 .collect(toList());
 
-        final long diffSum = lastEvents.stream()
+        final double diffSum = lastEvents.stream()
                 .mapToLong(EarthEvent::getTimeDiffSec)
                 .sum();
 
-        return diffSum / lastEvents.size();
+        return diffSum / lastEvents.size() / 60;
     }
 
     private double getFrequency(EarthEvent mainEvent, List<EarthEvent> eventList, TemporalUnit timeUnit) {
