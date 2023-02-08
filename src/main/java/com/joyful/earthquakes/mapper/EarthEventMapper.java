@@ -42,10 +42,10 @@ public class EarthEventMapper {
     private double getFrequency(EarthEvent mainEvent, List<EarthEvent> eventList, TemporalUnit timeUnit, int unitsNumber) {
         List<EarthEvent> lastEvents = eventList.stream()
                 .filter(event -> event.getTime().isAfter(mainEvent.getTime().minus(unitsNumber, timeUnit)))
+                .filter(event -> event.getTimeDiffSec() != null)
                 .collect(toList());
 
         final long diffSum = lastEvents.stream()
-                .filter(event -> event.getTimeDiffSec() != null)
                 .mapToLong(EarthEvent::getTimeDiffSec)
                 .sum();
 
