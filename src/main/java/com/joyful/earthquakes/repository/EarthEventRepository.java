@@ -4,6 +4,7 @@ import com.joyful.earthquakes.model.entity.EarthEvent;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.sql.Timestamp;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -17,5 +18,5 @@ public interface EarthEventRepository extends JpaRepository<EarthEvent, Long> {
     List<EarthEvent> findAllByLocation(String location);
 
     @Query(nativeQuery = true, value = "SELECT max(event_time) FROM earth_event")
-    ZonedDateTime findMaxTime();
+    Timestamp findMaxTime();
 }
