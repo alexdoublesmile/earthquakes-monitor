@@ -9,6 +9,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Log4j2
@@ -25,8 +26,9 @@ public class EarthEventService {
 
     @Transactional
     public void saveAll(List<EarthEvent> events) {
+        final ZonedDateTime maxTime = earthEventRepository.findMaxTime();
         events.forEach(event -> {
-            if (earthEventRepository.notExists(event.getTime())) {
+            if (maxTime.isBefore(event.getTime())) {
                 earthEventRepository.save(event);
             }
         });

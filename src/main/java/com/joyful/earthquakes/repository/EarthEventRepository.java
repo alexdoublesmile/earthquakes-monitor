@@ -15,4 +15,7 @@ public interface EarthEventRepository extends JpaRepository<EarthEvent, Long> {
     Boolean notExists(ZonedDateTime time);
 
     List<EarthEvent> findAllByLocation(String location);
+
+    @Query(nativeQuery = true, value = "SELECT max(event_time) FROM earth_event")
+    ZonedDateTime findMaxTime();
 }
