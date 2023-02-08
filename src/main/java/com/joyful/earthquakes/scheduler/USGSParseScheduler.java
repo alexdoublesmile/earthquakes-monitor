@@ -11,7 +11,7 @@ public class USGSParseScheduler {
 
     private final USGSParserService parserService;
 
-    @Scheduled(cron = " 0 */60 * * * *")
+    @Scheduled(cron = " */60 * * * * *")
     public void parseUSGS() {
         parserService.parse();
     }

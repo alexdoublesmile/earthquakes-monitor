@@ -72,6 +72,12 @@ public class USGSParserService {
     private void setEventsDiff(HashMap<String, List<EarthEvent>> locationNewEvents) {
         for (Map.Entry<String, List<EarthEvent>> entry : locationNewEvents.entrySet()) {
             final List<EarthEvent> events = entry.getValue();
+
+            final EarthEvent firstEvent = events.get(0);
+            final ZonedDateTime firstEventTime = firstEvent.getTime();
+            earthEventService.findLastTimeByLocation(entry.getKey(), firstEventTime)
+                    .ifPresent(lastTime -> firstEvent.setEventTimeDiff(firstEventTime.toEpochSecond() - lastTime.toEpochSecond()));
+
             for (int i = 1; i < events.size(); i++) {
                 final EarthEvent currentEvent = events.get(i);
                 final long currentEventTime = currentEvent.getTime().toEpochSecond();

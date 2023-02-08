@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Log4j2
 @Service
@@ -34,5 +35,14 @@ public class EarthEventService {
                 earthEventRepository.save(event);
             }
         });
+    }
+
+    public Optional<ZonedDateTime> findLastTimeByLocation(String location, ZonedDateTime time) {
+        final List<EarthEvent> allByLocation = earthEventRepository.findAllByLocation(location);
+
+        return allByLocation.stream()
+                .filter(event -> event.getTime().isBefore(time))
+                .map(EarthEvent::getTime)
+                .max(ZonedDateTime::compareTo);
     }
 }
