@@ -9,6 +9,7 @@ public class EarthEventReadDto {
     String magnitude;
     String fullLocation;
     String time;
+    String timeDiff;
     String hourFrequency;
     String hourFactor;
     String dayFrequency;

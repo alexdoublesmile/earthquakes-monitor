@@ -27,12 +27,42 @@ public class EarthEventMapper {
                         .magnitude(String.valueOf(earthEvent.getMagnitude()))
                         .fullLocation(earthEvent.getRegion() + COMMA + SPACE + earthEvent.getLocation())
                         .time(earthEvent.getTime().toString())
+                        .timeDiff(getTieDiff(earthEvent.getTimeDiffSec()))
                         .hourFrequency(getFrequency(earthEvent, sortedEvents, HOURS) + SPACE + "min.")
                         .hourFactor(getFactor(earthEvent, sortedEvents, HOURS) + SPACE + "min. difference")
                         .dayFrequency(getFrequency(earthEvent, sortedEvents, DAYS) + SPACE + "min.")
                         .dayFactor(getFactor(earthEvent, sortedEvents, DAYS) + SPACE + "min. difference")
                         .build())
                 .collect(toList());
+    }
+
+    private String getTieDiff(Long diff) {
+        if (diff == null) {
+            return "no previous data";
+        }
+
+        long totalSeconds = diff;
+        long totalMinutes = totalSeconds / 60;
+        long totalHours = totalMinutes / 60;
+        long totalDays = totalHours / 24;
+
+        long hours = totalHours % 24;
+        long minutes = totalMinutes % 60;
+        long seconds = totalSeconds % 60;
+
+        if (totalDays != 0) {
+            return String.format("%d days %d hours %d min", totalDays, hours, minutes);
+        }
+        if (hours != 0) {
+            return String.format("%dh %dmin", hours, minutes);
+
+        }
+        if (minutes != 0) {
+            return String.format("%d min %d sec", minutes, seconds);
+
+        } else {
+            return String.format("%d seconds", seconds);
+        }
     }
 
     private double getFactor(EarthEvent mainEvent, List<EarthEvent> eventList, TemporalUnit timeUnit) {
