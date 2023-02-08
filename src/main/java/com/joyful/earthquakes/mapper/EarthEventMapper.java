@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import java.time.temporal.TemporalUnit;
 import java.util.List;
 
+import static com.joyful.earthquakes.util.ParserConstants.COMMA;
+import static com.joyful.earthquakes.util.ParserConstants.SPACE;
 import static java.time.temporal.ChronoUnit.DAYS;
 import static java.time.temporal.ChronoUnit.HOURS;
 import static java.util.Comparator.comparing;
@@ -23,7 +25,7 @@ public class EarthEventMapper {
         return sortedEvents.stream()
                 .map(earthEvent -> EarthEventReadDto.builder()
                         .magnitude(String.valueOf(earthEvent.getMagnitude()))
-                        .fullLocation(earthEvent.getRegion() + earthEvent.getLocation())
+                        .fullLocation(earthEvent.getRegion() + COMMA + SPACE + earthEvent.getLocation())
                         .time(earthEvent.getTime().toString())
                         .hourFrequency(getFrequency(earthEvent, sortedEvents, HOURS) + "min")
                         .hourFactor(getFactor(earthEvent, sortedEvents, HOURS) + "min")
