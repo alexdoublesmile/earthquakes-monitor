@@ -45,6 +45,7 @@ public class EarthEventMapper {
                 .collect(toList());
 
         final long diffSum = lastEvents.stream()
+                .filter(event -> event.getTimeDiffSec() != null)
                 .mapToLong(EarthEvent::getTimeDiffSec)
                 .sum();
 
