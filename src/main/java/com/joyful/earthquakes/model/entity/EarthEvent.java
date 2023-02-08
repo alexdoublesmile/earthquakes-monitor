@@ -13,7 +13,6 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Data
 @Builder
 @Entity
-@Table(name = "usgs_event")
 @NoArgsConstructor
 @AllArgsConstructor
 public class EarthEvent {
