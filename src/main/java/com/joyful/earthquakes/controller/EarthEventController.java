@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/api/v1/events")
 @RequiredArgsConstructor
 public class EarthEventController {
-    private EarthEventService earthEventService;
+    private final EarthEventService earthEventService;
 
     @Operation(summary = "Getting all events by location")
     @ApiResponses(value = {
